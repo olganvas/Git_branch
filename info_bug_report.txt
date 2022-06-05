@@ -1,0 +1,9 @@
+Структура баг репорта:
+
+Краткое описание проблемы Bug Summary
+Серьезность Severity
+Предусловия
+Шаги воспроизведения Steps to reproduce
+Фактический результат Actual Result
+Ожидаемый результат Expected Result
+Прикрепленные файлы Attachment
