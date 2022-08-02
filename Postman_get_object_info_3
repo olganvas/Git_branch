@@ -1,0 +1,64 @@
+// http://162.55.220.72:5005/object_info_3
+// 1.Отправить запрос.
+// 2.Статус код 200
+pm.test("Check status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+// 3.Спарсить response body в json.
+let jsonData = pm.response.json();
+
+// 4.Спарсить request.
+let req = pm.request.url.query.toObject();
+
+// 5.Проверить, что name в ответе равно name в request (name забрать из request.)
+pm.test("Name in response is equal to name in request", function () {
+    let jsonData = pm.response.json();
+    let resp_name = jsonData.name;
+    let req_name = req.name;
+    pm.expect(resp_name).to.eql(req_name);
+});
+
+// 6.Проверить, что age в ответе равно age в request (age забрать из request.)
+pm.test("Age in response is equal to age in request", function () {
+    let jsonData = pm.response.json();
+    let resp_age = jsonData.age;
+    let req_age = req.age;
+    pm.expect(Number(resp_age)).to.eql(Number(req_age));
+});
+// 7.Проверить, что salary в ответе равно salary в request (salary забрать из request)
+pm.test("Salary in response is equal to salary in request", function () {
+    let jsonData = pm.response.json();
+    let resp_salary = jsonData.salary;
+    let req_salary = req.salary;
+    pm.expect(Number(resp_salary)).to.eql(Number(req_salary));
+});
+
+// 8.Вывести в консоль параметр family из response.
+let resp_family = jsonData.family;
+console.log(resp_family)
+
+// 9.Проверить, что у параметра dog есть параметры name.
+let resp_dog_name = jsonData.family.pets.dog;
+pm.test("Check param dog name", function () {
+    pm.expect(JSON.stringify(resp_dog_name)).to.include("name");
+});
+
+// 10.Проверить, что у параметра dog есть параметры age.
+let resp_dog_age = jsonData.family.pets.dog;
+pm.test("Check param dog age", function () {
+    pm.expect(JSON.stringify(resp_dog_age)).to.include("age");
+});
+
+// 11.Проверить, что параметр name имеет значение Luky.
+pm.test("Check dog name Luky", function () {
+    let jsonData = pm.response.json();
+    let resp_dog_name = jsonData.family.pets.dog.name;
+    pm.expect(resp_dog_name).to.eql("Luky");
+});
+
+// 12.Проверить, что параметр age имеет значение 4.
+pm.test("Check dog age", function () {
+    let jsonData = pm.response.json();
+    let resp_dog_age = jsonData.family.pets.dog.age;
+    pm.expect(resp_dog_age).to.eql(4);
+});
